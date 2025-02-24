@@ -1,13 +1,40 @@
+import { App, Button, Divider, Form, Input } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import './login.scss';
+import { useState } from 'react';
+import type { FormProps } from 'antd';
+import { loginAPI } from '../../services/api';
 
-import { Button, Divider, Form, Input } from 'antd';
-import "./login.scss"
-import { Link } from 'react-router-dom';
 type FieldType = {
-  username?: string;
-  password?: string;
+  username: string;
+  password: string;
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
+  const { message, notification } = App.useApp();
+
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    const { username, password } = values;
+    setIsSubmit(true);
+    const res = await loginAPI(username, password);
+    setIsSubmit(false);
+    if (res?.data) {
+      localStorage.setItem('access_token', res.data.access_token);
+      message.success('Đăng nhập tài khoản thành công!');
+      navigate('/')
+    } else {
+      notification.error({
+        message: "Có lỗi xảy ra",
+        description:
+          res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+        duration: 5
+      })
+    }
+  };
+
+
   return (
     <div className="login-page">
       <main className="main">
@@ -20,6 +47,7 @@ const LoginPage = () => {
             </div>
             <Form
               name="login-form"
+              onFinish={onFinish}
               autoComplete="off"
             >
               <Form.Item<FieldType>
@@ -44,7 +72,7 @@ const LoginPage = () => {
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={isSubmit}>
                   Đăng nhập
                 </Button>
               </Form.Item>
@@ -62,6 +90,6 @@ const LoginPage = () => {
       </main>
     </div>
   )
-};
+}
 
 export default LoginPage;
