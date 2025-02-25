@@ -28,4 +28,15 @@ declare global {
             id: string;
         }
     }
+    interface IUserTable {
+        _id: string;
+        fullName: string;
+        email: string;
+        phone: number;
+        role: string;
+        avatar: string;
+        isActive: boolean;
+        createAt: Date;
+        updateAt: Date;
+    }
 }
