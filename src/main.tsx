@@ -8,6 +8,7 @@ import Layout from './layout';
 import LoginPage from './pages/login';
 import AdminLayout from './components/admin/admin.layout';
 import UserPage from './pages/user';
+import RegisterPage from './pages/register/register';
 
 const router = createBrowserRouter([
   {
@@ -46,8 +47,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <div>register page</div>,
+    element: <RegisterPage />,
   },
+
   {
     path: "/user",
     element: <UserPage />,

@@ -28,6 +28,11 @@ declare global {
             id: string;
         }
     }
+    interface IRegister {
+        _id: string;
+        email: string;
+        fullName: string;
+    }
     interface IUserTable {
         _id: string;
         fullName: string;
