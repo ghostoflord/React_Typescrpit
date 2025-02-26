@@ -3,7 +3,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button } from 'antd';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { getUsersAPI } from '../../services/api';
 
 
@@ -65,7 +65,6 @@ const TableUser = () => {
                         "success": true,
                         "total": res.data?.meta.total
                     }
-
                 }}
                 rowKey="id"
                 pagination={{
@@ -84,10 +83,8 @@ const TableUser = () => {
                     >
                         Add new
                     </Button>
-
                 ]}
             />
-
         </>
     );
 };

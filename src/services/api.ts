@@ -16,5 +16,10 @@ export const registerAPI = (fullName: string, email: string, password: string, p
 
 export const getUsersAPI = () => {
     const urlBackend = "/api/v1/user?current=1&pageSize=5";
-    axios.get<IBackendRes<IModelPaginate<IUserTable>>>(urlBackend)
+    return axios.get<IBackendRes<IModelPaginate<IUserTable>>>(urlBackend)
+}
+
+export const getBooksAPI = (query: string) => {
+    const urlBackend = `/api/v1/book?${query}`;
+    return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
 }
