@@ -1,54 +1,60 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { ActionType, ProColumns, ProTable } from "@ant-design/pro-components";
-import { Button } from "antd";
-import { getUsersAPI } from "../../services/api";
-import { useRef } from "react";
+
+import { PlusOutlined } from '@ant-design/icons';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
+import { Button } from 'antd';
+import { useRef } from 'react';
+import { getUsersAPI } from '../../services/api';
+
+
 const columns: ProColumns<IUserTable>[] = [
     {
-        dataIndex: "index",
-        valueType: "indexBorder",
+        dataIndex: 'index',
+        valueType: 'indexBorder',
         width: 48,
     },
     {
-        title: "_id",
-        dataIndex: "_id",
+        title: '_id',
+        dataIndex: '_id',
+    },
+    {
+        title: 'Full Name',
+        dataIndex: 'fullName',
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+    },
+    {
+        title: 'Created At',
+        dataIndex: 'createdAt',
+    },
+    {
+        title: 'ghost',
+        dataIndex: 'title',
+        copyable: true,
+        ellipsis: true,
+        tooltip: '标题过长会自动收缩',
+        formItemProps: {
+            rules: [
+                {
+                    required: true,
+                    message: '此项为必填项',
+                },
+            ],
+        },
+    },
 
-    },
-    {
-        title: "Full Name",
-        dataIndex: "fullName",
-    },
-    {
-        title: "Email",
-        dataIndex: "email",
-    },
-    {
-        title: "Phone",
-        dataIndex: "phone",
-    },
-    {
-        title: "Role",
-        dataIndex: "role",
-    },
-    {
-        title: "Created At",
-        dataIndex: "createdAt",
-    },
-    {
-        title: "Update dAt",
-        dataIndex: "updatedAt",
-    },
-]
-const UserTable = () => {
+];
+
+const TableUser = () => {
     const actionRef = useRef<ActionType>();
-
     return (
         <>
             <ProTable<IUserTable>
                 columns={columns}
                 actionRef={actionRef}
                 cardBordered
-
                 request={async (params, sort, filter) => {
                     console.log(sort, filter);
                     const res = await getUsersAPI();
@@ -80,9 +86,10 @@ const UserTable = () => {
                     </Button>
 
                 ]}
-
             />
+
         </>
     );
-}
-export default UserTable;
+};
+
+export default TableUser;

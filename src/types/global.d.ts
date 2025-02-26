@@ -14,7 +14,7 @@ declare global {
             pages: number;
             total: number;
         },
-        results: T[]
+        result: T[]
     }
 
     interface ILogin {
@@ -33,6 +33,16 @@ declare global {
         email: string;
         fullName: string;
     }
+
+    interface IUser {
+        email: string;
+        phone: string;
+        fullName: string;
+        role: string;
+        avatar: string;
+        id: string;
+    }
+
     interface IUserTable {
         _id: string;
         fullName: string;
