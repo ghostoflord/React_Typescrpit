@@ -1,9 +1,9 @@
 
-import { PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button } from 'antd';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { getUsersAPI } from '../../services/api';
 
 
@@ -30,19 +30,28 @@ const columns: ProColumns<IUserTable>[] = [
         dataIndex: 'createdAt',
     },
     {
-        title: 'ghost',
-        dataIndex: 'title',
-        copyable: true,
-        ellipsis: true,
-        tooltip: '标题过长会自动收缩',
-        formItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '此项为必填项',
-                },
-            ],
+        title: 'Action',
+        render(text, record, index, action) {
+            return (
+                <>
+                    <EditOutlined
+                        twoToneColor="#ff4d4f"
+                        style={{ cursor: "pointer", marginRight: 15 }}
+                        onClick={() => {
+                            alert("check edit")
+                        }}
+                    />
+                    <DeleteOutlined
+                        twoToneColor="#ff4d4f"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                            alert("check delete")
+                        }}
+                    />
+                </>
+            )
         },
+
     },
 
 ];
