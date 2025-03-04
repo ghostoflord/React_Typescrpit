@@ -5,10 +5,12 @@ import { ProTable } from '@ant-design/pro-components';
 import { Button, message, notification, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import { deleteUserAPI, getUsersAPI } from '../../../services/api';
+import CreateUser from './create.user';
 
 const TableUser = () => {
     const actionRef = useRef<ActionType>();
     const [deleteUser, setDeleteUser] = useState(false);
+    const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
 
     const handleDeleteUser = async (_id: string) => {
         setDeleteUser(true);
@@ -107,13 +109,18 @@ const TableUser = () => {
                         key="button"
                         icon={<PlusOutlined />}
                         onClick={() => {
-                            actionRef.current?.reload();
+                            setOpenModalCreate(true);
+                            // alert("on click")
                         }}
                         type="primary"
                     >
                         Add new
                     </Button>
                 ]}
+            />
+            <CreateUser
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
             />
         </>
     );
