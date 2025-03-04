@@ -9,7 +9,6 @@ import LoginPage from './pages/login';
 import AdminLayout from './components/layout/admin.layout';
 import UserPage from './pages/user';
 import RegisterPage from './pages/register/register';
-import ManageBookPage from './pages/admin/manage.book';
 import { App } from 'antd';
 import { AppProvider } from './components/context/app.context';
 
@@ -48,13 +47,6 @@ const router = createBrowserRouter([
     path: "/user",
     element: <UserPage />,
   },
-
-  {
-    path: "/book",
-    element: <ManageBookPage />,
-  },
-
-
 ]);
 
 createRoot(document.getElementById('root')!).render(
