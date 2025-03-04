@@ -4,7 +4,7 @@ import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button, message, notification, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
-import { deleteUserAPI, getUsersAPI } from '../../../../services/api';
+import { deleteUserAPI, getUsersAPI } from '../../../services/api';
 
 const TableUser = () => {
     const actionRef = useRef<ActionType>();

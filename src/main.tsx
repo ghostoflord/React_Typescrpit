@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Layout from './layout';
 import LoginPage from './pages/login';
-import AdminLayout from './components/admin/admin.layout';
+import AdminLayout from './components/layout/admin.layout';
 import UserPage from './pages/user';
 import RegisterPage from './pages/register/register';
 import ManageBookPage from './pages/admin/manage.book';
