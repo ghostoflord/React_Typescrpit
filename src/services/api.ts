@@ -35,7 +35,7 @@ export const createUserAPI = (fullName: string, password: string, email: string,
 // end call api user
 
 // start call api book
-export const getBooksAPI = (query: string) => {
-    const urlBackend = `/api/v1/book?${query}`;
+export const getBooksAPI = () => {
+    const urlBackend = "/api/v1/book?current=1&pageSize=5";
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
 }

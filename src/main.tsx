@@ -11,6 +11,7 @@ import UserPage from './pages/user';
 import RegisterPage from './pages/register/register';
 import { App } from 'antd';
 import { AppProvider } from './components/context/app.context';
+import BookPage from './pages/book';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <UserPage />,
+  },
+  {
+    path: "/book",
+    element: <BookPage />,
   },
 ]);
 
