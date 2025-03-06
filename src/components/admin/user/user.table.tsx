@@ -6,12 +6,14 @@ import { Button, message, notification, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import { deleteUserAPI, getUsersAPI } from '../../../services/api';
 import CreateUser from './create.user';
+import UserDetail from './user.detail';
 
 const TableUser = () => {
     const actionRef = useRef<ActionType>();
     const [deleteUser, setDeleteUser] = useState(false);
     const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
-
+    const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null);
+    const [openModalDetail, setOpenModelDetail] = useState<boolean>(false);
     const handleDeleteUser = async (_id: string) => {
         setDeleteUser(true);
         const res = await deleteUserAPI(_id);
@@ -33,8 +35,19 @@ const TableUser = () => {
             width: 48,
         },
         {
-            title: '_id',
+            title: 'Id',
             dataIndex: '_id',
+            hideInSearch: true,
+            render(dom, entity) {
+                return (
+                    <a
+                        onClick={() => {
+                            setDataViewDetail(entity);
+                            setOpenModelDetail(true);
+                        }}
+                        href='#'>{entity._id}</a>
+                )
+            },
         },
         {
             title: 'Full Name',
@@ -57,7 +70,8 @@ const TableUser = () => {
                             twoToneColor="#ff4d4f"
                             style={{ cursor: "pointer", marginRight: 15 }}
                             onClick={() => {
-                                alert("check edit")
+                                setOpenModelDetail(true);
+                                // alert("on click")
                             }}
                         />
                         <Popconfirm
@@ -121,6 +135,13 @@ const TableUser = () => {
             <CreateUser
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
+            />
+            <UserDetail
+                openModalDetail={openModalDetail}
+                setOpenModelDetail={setOpenModelDetail}
+                dataViewDetail={dataViewDetail}
+                setDataViewDetail={setDataViewDetail}
+
             />
         </>
     );

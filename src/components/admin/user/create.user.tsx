@@ -13,7 +13,7 @@ interface FieldType {
     phone?: string;
 };
 const CreateUser = (props: IProps) => {
-    const { openModalCreate, setOpenModalCreate } = props;
+    const { openModalCreate, setOpenModalCreate } = props
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
     const { message, notification } = App.useApp();
     const [form] = Form.useForm();
