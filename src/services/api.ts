@@ -40,8 +40,12 @@ export const getBooksAPI = () => {
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
 }
 
-
-export const createBookAPI = (thumbnail:string,slider:string,mainText:string,author:string,price:string,quantity:string,category:string) => {
+export const createBookAPI = (thumbnail: string, slider: string, mainText: string, author: string, price: string, quantity: string, category: string) => {
     const urlBackend = "/api/v1/book"
-    return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend,{thumbnail,slider,mainText,author,price,quantity,category})
+    return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend, { thumbnail, slider, mainText, author, price, quantity, category })
+}
+
+export const deleteBookAPI = (_id: string) => {
+    const urlBackend = `/api/v1/book/${_id}`;
+    return axios.delete<IBackendRes<IRegister>>(urlBackend)
 }

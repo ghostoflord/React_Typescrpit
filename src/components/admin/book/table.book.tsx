@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
-import { Popconfirm, Button } from 'antd';
+import { Popconfirm, Button, message, notification } from 'antd';
 import { DeleteTwoTone, EditTwoTone, PlusOutlined } from '@ant-design/icons';
 import DetailBook from './detail.book';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { getBooksAPI } from '../../../services/api';
+import { deleteBookAPI, getBooksAPI } from '../../../services/api';
 import CreateBook from './create.book';
 
 type TSearch = {
@@ -19,15 +19,30 @@ type TSearch = {
 const BookTable = () => {
     const actionRef = useRef<ActionType>();
     const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
     const [dataViewDetail, setDataViewDetail] = useState<IBookTable | null>(null);
+
+    const [deleteBook, setDeleteBook] = useState(false);
     const [meta, setMeta] = useState({
         current: 1,
         pageSize: 5,
         pages: 0,
         total: 0
     });
-
+    const handDeleteBook = async (_id: string) => {
+        setDeleteBook(true)
+        const res = await deleteBookAPI(_id);
+        if (res && res.data) {
+            message.success("delete user success")
+        } else {
+            notification.error({
+                message: 'error',
+                description: res.message
+            })
+        }
+        setDeleteBook(false)
+    }
     const columns: ProColumns<IBookTable>[] = [
         {
             dataIndex: 'index',
@@ -107,6 +122,10 @@ const BookTable = () => {
                             description={"Bạn có chắc chắn muốn xóa book này ?"}
                             okText="Xác nhận"
                             cancelText="Hủy"
+                            onConfirm={() => {
+                                handDeleteBook(entity._id)
+                            }}
+                            okButtonProps={{ loading: deleteBook }}
                         >
                             <span style={{ cursor: "pointer" }}>
                                 <DeleteTwoTone twoToneColor="#ff4d4f" />
