@@ -9,6 +9,7 @@ interface IProps {
 
 const UserDetail = (props: IProps) => {
     const { openModalDetail, setOpenModelDetail, dataViewDetail, setDataViewDetail } = props;
+
     const onClose = () => {
         setOpenModelDetail(false);
         setOpenModelDetail(null);

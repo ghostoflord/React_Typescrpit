@@ -39,3 +39,9 @@ export const getBooksAPI = () => {
     const urlBackend = "/api/v1/book?current=1&pageSize=5";
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
 }
+
+
+export const createBookAPI = (thumbnail:string,slider:string,mainText:string,author:string,price:string,quantity:string,category:string) => {
+    const urlBackend = "/api/v1/book"
+    return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend,{thumbnail,slider,mainText,author,price,quantity,category})
+}

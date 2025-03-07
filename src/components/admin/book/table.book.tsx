@@ -5,6 +5,7 @@ import DetailBook from './detail.book';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { getBooksAPI } from '../../../services/api';
+import CreateBook from './create.book';
 
 type TSearch = {
     mainText: string;
@@ -16,9 +17,10 @@ type TSearch = {
     price: number;
 }
 const BookTable = () => {
-
     const actionRef = useRef<ActionType>();
-
+    const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+    const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
+    const [dataViewDetail, setDataViewDetail] = useState<IBookTable | null>(null);
     const [meta, setMeta] = useState({
         current: 1,
         pageSize: 5,
@@ -26,12 +28,26 @@ const BookTable = () => {
         total: 0
     });
 
-
     const columns: ProColumns<IBookTable>[] = [
+        {
+            dataIndex: 'index',
+            valueType: 'indexBorder',
+            width: 48,
+        },
         {
             title: 'Id',
             dataIndex: '_id',
-            hideInSearch: true
+            hideInSearch: true,
+            render(dom, entity) {
+                return (
+                    <a
+                        onClick={() => {
+                            setDataViewDetail(entity);
+                            setOpenViewDetail(true);
+                        }}
+                        href='#'>{entity._id}</a>
+                )
+            },
         },
         {
             title: 'Tên sách',
@@ -80,7 +96,8 @@ const BookTable = () => {
                         <EditTwoTone
                             twoToneColor="#f57800" style={{ cursor: "pointer", margin: "0 5px" }}
                             onClick={() => {
-                                alert("on click")
+                                // alert("on click")
+                                setOpenViewDetail(true)
                             }}
                         />
 
@@ -129,7 +146,8 @@ const BookTable = () => {
                         key="button"
                         icon={<PlusOutlined />}
                         onClick={() => {
-                            alert("on click")
+                            setOpenModalCreate(true);
+                            // alert("on click")
                         }}
                         type="primary"
                     >
@@ -137,8 +155,16 @@ const BookTable = () => {
                     </Button>
                 ]}
             />
-
-            <DetailBook />
+            <CreateBook
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+            />
+            <DetailBook
+                openViewDetail={openViewDetail}
+                setOpenViewDetail={setOpenViewDetail}
+                dataViewDetail={dataViewDetail}
+                setDataViewDetail={setDataViewDetail}
+            />
         </>
     )
 }
